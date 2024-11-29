@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,4 +18,12 @@ public class Ruta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long IdRuta;
+
+    private String overviewPolyline;
+
+    @ElementCollection
+    @CollectionTable(name = "coordenadas_ruta", joinColumns = @JoinColumn(name = "idRuta"))
+    @Column(name = "coordenada")
+    private List<String> coordenadas;
+
 }

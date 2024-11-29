@@ -50,5 +50,4 @@ public class PaqueteEnvioController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

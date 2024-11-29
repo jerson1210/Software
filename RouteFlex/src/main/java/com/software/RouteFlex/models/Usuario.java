@@ -16,16 +16,16 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long IdUsuario;
+    private Long idUsuario;
 
-    private String Nombre;
+    private String nombre;
 
-    private String Apellido;
+    private String apellido;
 
-    private String Correo;
+    private String correo;
 
-    private String Contrasena;
+    private String contrasena;
 
-    private String Telefono;
+    private String telefono;
 
 }

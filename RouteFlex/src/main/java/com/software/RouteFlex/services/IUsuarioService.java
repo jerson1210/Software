@@ -21,4 +21,7 @@ public interface IUsuarioService {
     //Eliminar usario
     void eliminarUsuario(Long id);
 
+    //Loggin
+    boolean validarUsuario(String nombre, String contrasena);
+
 }

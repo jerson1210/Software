@@ -14,26 +14,26 @@ import java.util.Optional;
 public class UsuarioService implements IUsuarioService {
 
     @Autowired
-    UsuarioRepository repository;
+    UsuarioRepository usuarioRepository;
 
     @Override
     public List<Usuario> listarUsuario() {
-        return repository.findAll();
+        return usuarioRepository.findAll();
     }
 
     @Override
     public Usuario buscarUsuario(Long id) {
-        return repository.findById(id).orElse(null);
+        return usuarioRepository.findById(id).orElse(null);
     }
 
     @Override
     public Usuario crearUsuario(Usuario usuario) {
-        return repository.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     @Override
     public Usuario actualizarUsuario(Usuario usuario) {
-        Optional<Usuario> usuarioNuevo = repository.findById(usuario.getIdUsuario());
+        Optional<Usuario> usuarioNuevo = usuarioRepository.findById(usuario.getIdUsuario());
         if (usuarioNuevo.isPresent()){
             Usuario usuarioActualizar = usuarioNuevo.get();
 
@@ -43,7 +43,7 @@ public class UsuarioService implements IUsuarioService {
             usuarioActualizar.setContrasena(usuario.getContrasena());
             usuarioActualizar.setTelefono(usuario.getContrasena());
 
-            return repository.save(usuarioActualizar);
+            return usuarioRepository.save(usuarioActualizar);
         } else {
             throw new IllegalArgumentException("Usuario no encontrado");
         }
@@ -52,10 +52,19 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public void eliminarUsuario(Long id) {
 
-        if(repository.existsById(id)) {
-            repository.deleteById(id);
+        if(usuarioRepository.existsById(id)) {
+            usuarioRepository.deleteById(id);
         } else {
             throw new RuntimeException("Usuario no encontrado");
         }
+    }
+
+    @Override
+    public boolean validarUsuario(String nombre, String contrasena) {
+        Usuario usuario = usuarioRepository.findByNombre(nombre);
+        if(usuario == null) {
+            return false;
+        }
+        return usuario.getContrasena().equals(contrasena);
     }
 }

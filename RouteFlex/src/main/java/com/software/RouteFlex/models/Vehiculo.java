@@ -1,6 +1,5 @@
 package com.software.RouteFlex.models;
 
-import com.software.RouteFlex.enums.TipoVehiculo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

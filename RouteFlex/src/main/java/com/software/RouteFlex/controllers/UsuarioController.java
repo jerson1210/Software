@@ -1,5 +1,6 @@
 package com.software.RouteFlex.controllers;
 
+import com.software.RouteFlex.dto.LoginRequest;
 import com.software.RouteFlex.models.Usuario;
 import com.software.RouteFlex.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,19 @@ public class UsuarioController {
             return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+
+        String nombre = loginRequest.getNombre();
+        String contrasena = loginRequest.getContrasena();
+
+        if(usuarioService.validarUsuario(nombre, contrasena)) {
+            return ResponseEntity.ok("Login exitoso");
+        } else {
+            return ResponseEntity.badRequest().body("Usuario o contraseña incorrectos");
         }
     }
 }
