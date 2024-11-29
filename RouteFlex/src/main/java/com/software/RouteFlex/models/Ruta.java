@@ -26,4 +26,8 @@ public class Ruta {
     @Column(name = "coordenada")
     private List<String> coordenadas;
 
+    @ManyToOne
+    @JoinColumn(name = "IdUsuario")
+    private Usuario usuario;
+
 }

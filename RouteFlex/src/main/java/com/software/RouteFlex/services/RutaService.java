@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.software.RouteFlex.models.PaqueteEnvio;
 import com.software.RouteFlex.models.Ruta;
+import com.software.RouteFlex.models.Usuario;
 import com.software.RouteFlex.repositories.RutaRepository;
+import com.software.RouteFlex.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class RutaService implements IRutaService {
 
     @Autowired
     RutaRepository rutaRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     private static final String GOOGLE_MAPS_API_KEY = "AIzaSyCUVugVZe_pFpelUF-2ffL4AGnnqSNUt18";
     private static final String GEOCODING_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=" + GOOGLE_MAPS_API_KEY;
@@ -29,6 +33,9 @@ public class RutaService implements IRutaService {
 
     @Override
     public Ruta crearRuta(List<PaqueteEnvio> paqueteEnvio) {
+
+        Usuario usuario = paqueteEnvio.get(0).getUsuario();
+
         // Lista para almacenar las coordenadas obtenidas
         List<String> coordenadas = new ArrayList<>();
 
@@ -78,6 +85,7 @@ public class RutaService implements IRutaService {
                 Ruta nuevaRuta = new Ruta();
                 nuevaRuta.setOverviewPolyline(overviewPolyline);
                 nuevaRuta.setCoordenadas(coordenadas);
+                nuevaRuta.setUsuario(usuario);
 
                 rutaRepository.save(nuevaRuta);  // Guardar la nueva ruta en la base de datos
 
@@ -95,6 +103,15 @@ public class RutaService implements IRutaService {
     @Override
     public List<Ruta> listarRutas() {
         return rutaRepository.findAll();
+    }
+
+    @Override
+    public void eliminarRuta(Long id) {
+        if (rutaRepository.existsById(id)){
+            rutaRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Ruta no encontrada");
+        }
     }
 
 }

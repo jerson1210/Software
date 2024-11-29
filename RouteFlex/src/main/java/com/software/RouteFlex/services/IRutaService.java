@@ -13,4 +13,7 @@ public interface IRutaService {
     //Listar
     List<Ruta> listarRutas();
 
+    //Eliminar
+    void eliminarRuta(Long id);
+
 }
