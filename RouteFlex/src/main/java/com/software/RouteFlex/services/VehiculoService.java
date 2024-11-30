@@ -23,9 +23,15 @@ public class VehiculoService implements IVehiculoService{
     UsuarioRepository usuarioRepository;
 
     @Override
-    public List<Vehiculo> listarVehiculos() {
+    public List<Vehiculo> listarVehiculosUsuario(Long idUsuario) {
+        return vehiculoRepository.findVehiculosByUsuario(idUsuario);
+    }
+
+    @Override
+    public List<Vehiculo> listarVehiculo() {
         return vehiculoRepository.findAll();
     }
+
 
     @Override
     public Vehiculo buscarVehiculo(Long id) {
@@ -34,14 +40,11 @@ public class VehiculoService implements IVehiculoService{
 
     @Override
     public Vehiculo crearVehiculo(Vehiculo vehiculo) {
-        // Verificar si el Usuario está guardado en la base de datos
         Usuario usuario = usuarioRepository.findById(vehiculo.getUsuario().getIdUsuario())
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
 
-        // Asociar el Usuario al Vehiculo
         vehiculo.setUsuario(usuario);
 
-        // Guardar el Vehiculo
         return vehiculoRepository.save(vehiculo);
     }
 

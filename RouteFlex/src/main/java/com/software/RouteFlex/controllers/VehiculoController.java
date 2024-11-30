@@ -17,12 +17,17 @@ public class VehiculoController {
     @Autowired
     private VehiculoService vehiculoService;
 
-    @GetMapping("/listar")
-    public List<Vehiculo> listar(){
-        return vehiculoService.listarVehiculos();
+    @GetMapping("/listar/{idUsuario}")
+    public List<Vehiculo> listarPorUsuario(@PathVariable Long idUsuario) {
+        return vehiculoService.listarVehiculosUsuario(idUsuario);
     }
 
-    @GetMapping("/listar/{id}")
+    @GetMapping("/listar")
+    public List<Vehiculo> listar(){
+        return vehiculoService.listarVehiculo();
+    }
+
+    @GetMapping("/buscar/{id}")
     public Vehiculo buscar(@PathVariable Long id){
         return vehiculoService.buscarVehiculo(id);
     }

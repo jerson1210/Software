@@ -6,8 +6,11 @@ import java.util.List;
 
 public interface IVehiculoService {
 
+    //Listar por id
+    List<Vehiculo> listarVehiculosUsuario(Long idUsuario);
+
     //Listar
-    List<Vehiculo> listarVehiculos();
+    List<Vehiculo> listarVehiculo();
 
     //Obtener
     Vehiculo buscarVehiculo(Long id);
