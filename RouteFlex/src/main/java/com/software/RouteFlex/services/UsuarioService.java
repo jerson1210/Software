@@ -3,6 +3,7 @@ package com.software.RouteFlex.services;
 import com.software.RouteFlex.models.Usuario;
 import com.software.RouteFlex.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,12 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Usuario crearUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        try {
+            // Intentamos guardar al usuario
+            return usuarioRepository.save(usuario);
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("El nombre de usuario ya está en uso.");
+        }
     }
 
     @Override
@@ -60,11 +66,17 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public boolean validarUsuario(String nombre, String contrasena) {
+    public Usuario validarUsuario(String nombre, String contrasena) {
+        // Buscar el usuario por nombre
         Usuario usuario = usuarioRepository.findByNombre(nombre);
-        if(usuario == null) {
-            return false;
+
+        // Si no se encuentra el usuario o la contraseña no coincide, retornar null
+        if (usuario == null || !usuario.getContrasena().equals(contrasena)) {
+            throw new IllegalArgumentException("Usuario no encontrado");
         }
-        return usuario.getContrasena().equals(contrasena);
+
+        // Si la validación es exitosa, retornar el usuario completo
+        return usuario;
     }
+
 }

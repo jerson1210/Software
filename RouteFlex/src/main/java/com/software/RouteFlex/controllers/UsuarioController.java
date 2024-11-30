@@ -4,6 +4,7 @@ import com.software.RouteFlex.dto.LoginRequest;
 import com.software.RouteFlex.models.Usuario;
 import com.software.RouteFlex.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin("http://localhost:4200")
 public class UsuarioController {
 
     @Autowired
@@ -48,15 +49,15 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-
-        String nombre = loginRequest.getNombre();
-        String contrasena = loginRequest.getContrasena();
-
-        if(usuarioService.validarUsuario(nombre, contrasena)) {
-            return ResponseEntity.ok("Login exitoso");
-        } else {
-            return ResponseEntity.badRequest().body("Usuario o contraseña incorrectos");
+    public ResponseEntity<Usuario> validarUsuario(@RequestBody LoginRequest loginRequest) {
+        try {
+            // Intentamos validar al usuario usando el nombre y la contraseña recibidos en el JSON
+            Usuario usuario = usuarioService.validarUsuario(loginRequest.getNombre(), loginRequest.getContrasena());
+            // Si es válido, retornamos el usuario completo con código 200 (OK)
+            return ResponseEntity.ok(usuario);
+        } catch (IllegalArgumentException e) {
+            // Si ocurre una excepción (usuario no encontrado o contraseña incorrecta)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);  // Código 401 (Unauthorized)
         }
     }
 }
