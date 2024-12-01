@@ -32,6 +32,11 @@ public class RutaService implements IRutaService {
 
 
     @Override
+    public List<Ruta> listarRutaUsuario(Long id) {
+        return rutaRepository.findRutaByUsuario(id);
+    }
+
+    @Override
     public Ruta crearRuta(List<PaqueteEnvio> paqueteEnvio) {
 
         Usuario usuario = paqueteEnvio.get(0).getUsuario();

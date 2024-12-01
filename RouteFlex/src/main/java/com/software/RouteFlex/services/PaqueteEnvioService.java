@@ -23,6 +23,11 @@ public class PaqueteEnvioService implements IPaqueteEnvioService{
     UsuarioRepository usuarioRepository;
 
     @Override
+    public List<PaqueteEnvio> listarpaqueteUsuario(Long id) {
+        return paqueteRepository.findPaqueteByUsuario(id);
+    }
+
+    @Override
     public List<PaqueteEnvio> listarPaqueteEnvio() {
         return paqueteRepository.findAll();
     }

@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface IPaqueteEnvioService {
 
+    //Listar por usuario
+    List<PaqueteEnvio> listarpaqueteUsuario(Long id);
+
     //Listar
     List<PaqueteEnvio> listarPaqueteEnvio();
 

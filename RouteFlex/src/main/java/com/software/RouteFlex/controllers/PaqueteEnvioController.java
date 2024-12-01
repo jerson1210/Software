@@ -16,12 +16,17 @@ public class PaqueteEnvioController {
     @Autowired
     private PaqueteEnvioService paqueteEnvioService;
 
+    @GetMapping("/listar/{id}")
+    public List<PaqueteEnvio> listarPorUsuario(@PathVariable Long id) {
+        return paqueteEnvioService.listarpaqueteUsuario(id);
+    }
+
     @GetMapping("/listar")
     public List<PaqueteEnvio> listar(){
         return paqueteEnvioService.listarPaqueteEnvio();
     }
 
-    @GetMapping("/listar/{id}")
+    @GetMapping("/buscar/{id}")
     public PaqueteEnvio obtener(@PathVariable Long id){
         return paqueteEnvioService.obtenerPaqueteEnvio(id);
     }

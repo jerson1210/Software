@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface IRutaService {
 
+    //Listar ruta por usuario
+    List<Ruta> listarRutaUsuario(Long id);
+
     //Crear ruta
     Ruta crearRuta(List<PaqueteEnvio> paqueteEnvio);
 

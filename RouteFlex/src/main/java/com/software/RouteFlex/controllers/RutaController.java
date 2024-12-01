@@ -17,6 +17,10 @@ public class RutaController {
     @Autowired
     private RutaService rutaService;
 
+    @GetMapping("listar/{id}")
+    public List<Ruta> listarRuta(@PathVariable Long id) {
+        return rutaService.listarRutaUsuario(id);
+    }
 
     // Endpoint para crear una nueva ruta
     @PostMapping("/crear")
