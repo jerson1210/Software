@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AsignarRutaDto {
 
+    private Long idAsignarRuta;
     private RutaDTO ruta;
     private VehiculoDTO vehiculo;
 

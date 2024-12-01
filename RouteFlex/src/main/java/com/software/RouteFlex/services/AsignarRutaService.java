@@ -32,11 +32,13 @@ public class AsignarRutaService implements IAsignarRutaService {
         List<AsignarRuta> asignaciones = asignarRutaRepository.findAsignarRutaByConductor(idConductor);
 
         return asignaciones.stream().map(asignarRuta -> {
+            // Mapeo de la RutaDTO
             AsignarRutaDto.RutaDTO rutaDTO = new AsignarRutaDto.RutaDTO(
                     asignarRuta.getRuta().getOverviewPolyline(),
                     asignarRuta.getRuta().getCoordenadas()
             );
 
+            // Mapeo de la VehiculoDTO
             AsignarRutaDto.VehiculoDTO vehiculoDTO = new AsignarRutaDto.VehiculoDTO(
                     asignarRuta.getVehiculo().getPeso().intValue(),
                     asignarRuta.getVehiculo().getPlaca(),
@@ -46,9 +48,15 @@ public class AsignarRutaService implements IAsignarRutaService {
                     asignarRuta.getVehiculo().getTipoVehiculo()
             );
 
-            return new AsignarRutaDto(rutaDTO, vehiculoDTO);
+            // Retornar el DTO completo con el ID de la asignación de ruta
+            return new AsignarRutaDto(
+                    asignarRuta.getIdAsignarRuta(),  // Agregar el ID de la asignación
+                    rutaDTO,
+                    vehiculoDTO
+            );
         }).collect(Collectors.toList());
     }
+
 
     @Override
     public AsignarRuta crearAsignarRuta(AsignarRuta asignarRuta) {
