@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface IConductorService {
 
+    //Listar por id de usuario
+    List<Conductor> lsitarConcudtorUsuario(Long id);
+
     //Listar
     List<Conductor> listarConductor();
 

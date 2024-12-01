@@ -23,6 +23,11 @@ public class ConductorService implements IConductorService{
     UsuarioRepository usuarioRepository;
 
     @Override
+    public List<Conductor> lsitarConcudtorUsuario(Long id) {
+        return conductorRepository.findConductorByUsuario(id);
+    }
+
+    @Override
     public List<Conductor> listarConductor() {
         return conductorRepository.findAll();
     }

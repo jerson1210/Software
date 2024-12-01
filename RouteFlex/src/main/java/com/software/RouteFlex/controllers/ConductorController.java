@@ -17,12 +17,17 @@ public class ConductorController {
     @Autowired
     private ConductorService conductorService;
 
+    @GetMapping("/listar/{id}")
+    public List<Conductor> listarConductorUsuario(@PathVariable Long id) {
+        return conductorService.lsitarConcudtorUsuario(id);
+    }
+
     @GetMapping("/listar")
     public List<Conductor> listar() {
         return conductorService.listarConductor();
     }
 
-    @GetMapping("/listar/{id}")
+    @GetMapping("/obtener/{id}")
     public Conductor obtener(@PathVariable Long id) {
         return conductorService.obtenerConductor(id);
     }

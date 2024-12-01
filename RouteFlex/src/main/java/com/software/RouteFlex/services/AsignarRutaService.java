@@ -1,5 +1,6 @@
 package com.software.RouteFlex.services;
 
+import com.software.RouteFlex.dto.AsignarRutaDto;
 import com.software.RouteFlex.models.*;
 import com.software.RouteFlex.repositories.*;
 import jakarta.persistence.EntityNotFoundException;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,6 +25,30 @@ public class AsignarRutaService implements IAsignarRutaService {
     VehiculoRepository vehiculoRepository;
     @Autowired
     ConductorRepository conductorRepository;
+
+
+    @Override
+    public List<AsignarRutaDto> listarAsignarConductor(Long idConductor) {
+        List<AsignarRuta> asignaciones = asignarRutaRepository.findAsignarRutaByConductor(idConductor);
+
+        return asignaciones.stream().map(asignarRuta -> {
+            AsignarRutaDto.RutaDTO rutaDTO = new AsignarRutaDto.RutaDTO(
+                    asignarRuta.getRuta().getOverviewPolyline(),
+                    asignarRuta.getRuta().getCoordenadas()
+            );
+
+            AsignarRutaDto.VehiculoDTO vehiculoDTO = new AsignarRutaDto.VehiculoDTO(
+                    asignarRuta.getVehiculo().getPeso().intValue(),
+                    asignarRuta.getVehiculo().getPlaca(),
+                    asignarRuta.getVehiculo().isEstado(),
+                    asignarRuta.getVehiculo().getMarca(),
+                    asignarRuta.getVehiculo().getIdVehiculo(),
+                    asignarRuta.getVehiculo().getTipoVehiculo()
+            );
+
+            return new AsignarRutaDto(rutaDTO, vehiculoDTO);
+        }).collect(Collectors.toList());
+    }
 
     @Override
     public AsignarRuta crearAsignarRuta(AsignarRuta asignarRuta) {

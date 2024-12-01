@@ -1,10 +1,14 @@
 package com.software.RouteFlex.services;
 
+import com.software.RouteFlex.dto.AsignarRutaDto;
 import com.software.RouteFlex.models.AsignarRuta;
 
 import java.util.List;
 
 public interface IAsignarRutaService {
+
+    //Listar por id
+    List<AsignarRutaDto> listarAsignarConductor(Long idConductor);
 
     //Crear
     AsignarRuta crearAsignarRuta(AsignarRuta asignarRuta);

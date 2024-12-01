@@ -1,5 +1,6 @@
 package com.software.RouteFlex.controllers;
 
+import com.software.RouteFlex.dto.AsignarRutaDto;
 import com.software.RouteFlex.models.AsignarRuta;
 import com.software.RouteFlex.services.AsignarRutaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,11 @@ public class AsignarRutaController {
 
     @Autowired
     AsignarRutaService asignarRutaService;
+
+    @GetMapping("listar/{id}")
+    public List<AsignarRutaDto> listarAsignarRutaConductor(@PathVariable Long id) {
+        return asignarRutaService.listarAsignarConductor(id);
+    }
 
     @PostMapping("/crear")
     public AsignarRuta createRuta(@RequestBody AsignarRuta asignarRuta) {

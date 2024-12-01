@@ -17,7 +17,7 @@ public class Conductor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long IdConductor;
+    private Long idConductor;
 
     @Column(unique = true)
     private String nombre;
