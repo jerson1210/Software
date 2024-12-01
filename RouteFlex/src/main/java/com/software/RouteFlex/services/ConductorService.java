@@ -68,4 +68,14 @@ public class ConductorService implements IConductorService{
             throw new IllegalArgumentException("Conductor no encontrado");
         }
     }
+
+    @Override
+    public Conductor validarConductor(String nombre, String contrasena) {
+        Conductor conductor= conductorRepository.findByNombre(nombre);
+
+        if (conductor == null || !conductor.getContrasena().equals(contrasena)) {
+            throw new IllegalArgumentException("Conductor no encontrado");
+        }
+        return conductor;
+    }
 }

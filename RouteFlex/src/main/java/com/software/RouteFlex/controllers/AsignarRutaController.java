@@ -25,7 +25,7 @@ public class AsignarRutaController {
         return asignarRutaService.listarAsignaciones();
     }
 
-    @DeleteMapping("/eliminar")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarRuta(@PathVariable Long id) {
         try {
             asignarRutaService.eliminarAsignacion(id);

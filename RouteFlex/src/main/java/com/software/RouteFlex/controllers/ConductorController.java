@@ -1,5 +1,6 @@
 package com.software.RouteFlex.controllers;
 
+import com.software.RouteFlex.dto.LoginRequest;
 import com.software.RouteFlex.models.Conductor;
 import com.software.RouteFlex.services.ConductorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,16 @@ public class ConductorController {
             return ResponseEntity.ok().build();
         } catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Conductor> validarConductor(@RequestBody LoginRequest loginRequest) {
+        try {
+            Conductor conductor = conductorService.validarConductor(loginRequest.getNombre(), loginRequest.getContrasena());
+            return ResponseEntity.ok(conductor);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 }

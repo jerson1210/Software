@@ -1,5 +1,6 @@
 package com.software.RouteFlex.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,21 +19,21 @@ public class Conductor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long IdConductor;
 
-    private String Nombre;
+    @Column(unique = true)
+    private String nombre;
 
-    private String Apellido;
+    private String apellido;
 
-    private String Correo;
+    private String correo;
 
-    private String Telefono;
+    private String telefono;
 
+    @Column(name = "contrasena")
     private String contrasena;
 
     @ManyToOne
     @JoinColumn(name = "IdUsuario")
     private Usuario usuario;
 
-    @OneToOne(mappedBy = "conductor")
-    private AsignarRuta asignarRuta;
 
 }

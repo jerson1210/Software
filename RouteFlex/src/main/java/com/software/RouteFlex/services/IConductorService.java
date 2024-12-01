@@ -20,4 +20,7 @@ public interface IConductorService {
 
     //Eliminar
     void eliminarConductor(Long id);
+
+    //Validar
+    Conductor validarConductor(String nombre, String contrasena);
 }

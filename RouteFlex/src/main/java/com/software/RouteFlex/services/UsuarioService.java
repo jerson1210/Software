@@ -67,15 +67,11 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Usuario validarUsuario(String nombre, String contrasena) {
-        // Buscar el usuario por nombre
         Usuario usuario = usuarioRepository.findByNombre(nombre);
 
-        // Si no se encuentra el usuario o la contraseña no coincide, retornar null
         if (usuario == null || !usuario.getContrasena().equals(contrasena)) {
             throw new IllegalArgumentException("Usuario no encontrado");
         }
-
-        // Si la validación es exitosa, retornar el usuario completo
         return usuario;
     }
 

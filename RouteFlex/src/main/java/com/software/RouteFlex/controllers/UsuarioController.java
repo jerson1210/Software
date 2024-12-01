@@ -51,13 +51,10 @@ public class UsuarioController {
     @PostMapping("/login")
     public ResponseEntity<Usuario> validarUsuario(@RequestBody LoginRequest loginRequest) {
         try {
-            // Intentamos validar al usuario usando el nombre y la contraseña recibidos en el JSON
             Usuario usuario = usuarioService.validarUsuario(loginRequest.getNombre(), loginRequest.getContrasena());
-            // Si es válido, retornamos el usuario completo con código 200 (OK)
             return ResponseEntity.ok(usuario);
         } catch (IllegalArgumentException e) {
-            // Si ocurre una excepción (usuario no encontrado o contraseña incorrecta)
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);  // Código 401 (Unauthorized)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 }

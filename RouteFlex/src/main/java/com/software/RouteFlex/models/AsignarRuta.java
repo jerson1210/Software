@@ -1,5 +1,6 @@
 package com.software.RouteFlex.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class AsignarRuta {
     @JoinColumn(name = "IdVehiculo")
     private Vehiculo vehiculo;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "IdConductor")
     private Conductor conductor;
 }
