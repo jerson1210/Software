@@ -28,6 +28,11 @@ public class AsignarRutaService implements IAsignarRutaService {
 
 
     @Override
+    public List<AsignarRuta> listarAsignarUsuario(Long idUsuario) {
+        return asignarRutaRepository.findAsignarRutaByUsuario(idUsuario);
+    }
+
+    @Override
     public List<AsignarRutaDto> listarAsignarConductor(Long idConductor) {
         List<AsignarRuta> asignaciones = asignarRutaRepository.findAsignarRutaByConductor(idConductor);
 

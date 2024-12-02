@@ -16,6 +16,11 @@ public class AsignarRutaController {
     @Autowired
     AsignarRutaService asignarRutaService;
 
+    @GetMapping("listarUsuario/{id}")
+    public List<AsignarRuta> listarAsignarUsuario(@PathVariable Long id) {
+        return asignarRutaService.listarAsignarUsuario(id);
+    }
+
     @GetMapping("listar/{id}")
     public List<AsignarRutaDto> listarAsignarRutaConductor(@PathVariable Long id) {
         return asignarRutaService.listarAsignarConductor(id);
